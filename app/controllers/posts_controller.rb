@@ -9,21 +9,26 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post = Post.new
   end
 
   def create
     # render plain: params[:post].inspect
     # save
     # @post = Post.new(params[:post])
-    # @post = Post.new(params.require[:post].permit(:title, :body))
+    # @post = Post.new(params.require(:post).permit(:title, :body))
     @post = Post.new(post_params)
     if @post.save
-    redirect_to posts_path
-    # redirect
-  else
-    render plain: @post.errors.inspect
+      redirect_to posts_path
+      # redirect
+    else
+      # render plain: @post.errors.inspect
+      render 'new'
+    end
   end
 
+  def edit
+    @post = Post.find(params[:id])
   end
 
   private
