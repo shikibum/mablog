@@ -2,9 +2,18 @@
 <p><%= simple_format @post.body %></p>
 
 <h3>Comments</h3>
-<%= form_for ([@post, @post.comments.build]) do |f| %>
+<% if @post.comments.any? %>
+<ul>
+  <% @post.comments.each do |comment| %>
+  <li>
+   <%= comment.body %>
+  </li>
+  <% end %>
+</ul>
+<% end %>>
+<%= form_for([@post, @post.comments.build]) do |f| %>
 <p>
-  <%= f.text_area :body %>
+  <%= f.text_field :body %>
 </p>
 <p>
   <%= f.submit %>
